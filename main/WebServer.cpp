@@ -35,6 +35,7 @@
 #include "../hardware/eHouseTCP.h"
 #include "../hardware/USBtin.h"
 #include "../hardware/USBtin_MultiblocV8.h"
+#include "../hardware/DomoCAN.h"
 #ifdef WITH_GPIO
 #include "../hardware/Gpio.h"
 #include "../hardware/GpioPin.h"
@@ -403,6 +404,12 @@ namespace http {
 			RegisterCommandCode("wolupdatenode", boost::bind(&CWebServer::Cmd_WOLUpdateNode, this, _1, _2, _3));
 			RegisterCommandCode("wolremovenode", boost::bind(&CWebServer::Cmd_WOLRemoveNode, this, _1, _2, _3));
 			RegisterCommandCode("wolclearnodes", boost::bind(&CWebServer::Cmd_WOLClearNodes, this, _1, _2, _3));
+
+			RegisterCommandCode("domocangetnodes", boost::bind(&CWebServer::Cmd_DomoCANGetNodes, this, _1, _2, _3));
+			RegisterCommandCode("domocanaddnode", boost::bind(&CWebServer::Cmd_DomoCANAddNode, this, _1, _2, _3));
+			RegisterCommandCode("domocanupdatenode", boost::bind(&CWebServer::Cmd_DomoCANUpdateNode, this, _1, _2, _3));
+			RegisterCommandCode("domocanremovenode", boost::bind(&CWebServer::Cmd_DomoCANRemoveNode, this, _1, _2, _3));
+			RegisterCommandCode("domocanclearnodes", boost::bind(&CWebServer::Cmd_DomoCANClearNodes, this, _1, _2, _3));
 
 			RegisterCommandCode("mysensorsgetnodes", boost::bind(&CWebServer::Cmd_MySensorsGetNodes, this, _1, _2, _3));
 			RegisterCommandCode("mysensorsgetchilds", boost::bind(&CWebServer::Cmd_MySensorsGetChilds, this, _1, _2, _3));
@@ -1340,6 +1347,9 @@ namespace http {
 			else if (htype == HTYPE_EcoCompteur) {
 				//all fine here!
 			}
+			else if (htype == HTYPE_DomoCANGW) {
+				//all fine here!
+			}
 			else
 				return;
 
@@ -1730,6 +1740,9 @@ namespace http {
 				//All fine here
 			}
 			else if (htype == HTYPE_EnphaseAPI) {
+				//all fine here!
+			}
+			else if (htype == HTYPE_DomoCANGW) {
 				//all fine here!
 			}
 			else

@@ -125,6 +125,11 @@ private:
 	void Cmd_WOLUpdateNode(WebEmSession & session, const request& req, Json::Value &root);
 	void Cmd_WOLRemoveNode(WebEmSession & session, const request& req, Json::Value &root);
 	void Cmd_WOLClearNodes(WebEmSession & session, const request& req, Json::Value &root);
+	void Cmd_DomoCANGetNodes(WebEmSession & session, const request& req, Json::Value &root);
+	void Cmd_DomoCANAddNode(WebEmSession & session, const request& req, Json::Value &root);
+	void Cmd_DomoCANUpdateNode(WebEmSession & session, const request& req, Json::Value &root);
+	void Cmd_DomoCANRemoveNode(WebEmSession & session, const request& req, Json::Value &root);
+	void Cmd_DomoCANClearNodes(WebEmSession & session, const request& req, Json::Value &root);
 	void Cmd_MySensorsGetNodes(WebEmSession & session, const request& req, Json::Value &root);
 	void Cmd_MySensorsGetChilds(WebEmSession & session, const request& req, Json::Value &root);
 	void Cmd_MySensorsUpdateNode(WebEmSession & session, const request& req, Json::Value &root);

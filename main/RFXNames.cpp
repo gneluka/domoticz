@@ -278,6 +278,7 @@ static const STR_TABLE_SINGLE	HardwareTypeTable[] =
 	{ HTYPE_DenkoviHTTPDevices, "Denkovi Modules with LAN (HTTP) Interface",		"Denkovi" },
 	{ HTYPE_DenkoviUSBDevices, "Denkovi Modules with USB Interface",				"Denkovi" },
 	{ HTYPE_DenkoviTCPDevices, "Denkovi Modules with LAN (TCP) Interface",			"Denkovi" },
+	{ HTYPE_DomoCANGW, "DomoCAN SocketCAN Gateway",									"DomoCAN" },
 	{ 0, NULL, NULL }
 };
 
