@@ -444,6 +444,16 @@ const char *sqlCreateWOLNodes =
 "[MacAddress] VARCHAR(50) DEFAULT Unknown, "
 "[Timeout] INTEGER DEFAULT 5);";
 
+const char *sqlCreateDomoCANNodes =
+"CREATE TABLE IF NOT EXISTS [DomoCANNodes] ("
+"[ID] INTEGER PRIMARY KEY, "
+"[HardwareID] INTEGER NOT NULL, "
+//"[DeviceID] VARCHAR(25) NOT NULL, "
+"[Name] VARCHAR(100) DEFAULT Unknown, "
+"[DomoCANDevType] INTEGER DEFAULT Unknown, "
+"[DomoCANID] INTEGER DEFAULT Unknown, "
+"[Timeout] INTEGER DEFAULT 5);";
+
 const char *sqlCreatePercentage =
 "CREATE TABLE IF NOT EXISTS [Percentage] ("
 "[DeviceRowID] BIGINT(10) NOT NULL, "
@@ -728,6 +738,7 @@ bool CSQLHelper::OpenDatabase()
 	query(sqlCreateEventRules);
 	query(sqlCreateZWaveNodes);
 	query(sqlCreateWOLNodes);
+	query(sqlCreateDomoCANNodes);
 	query(sqlCreatePercentage);
 	query(sqlCreatePercentage_Calendar);
 	query(sqlCreateFan);

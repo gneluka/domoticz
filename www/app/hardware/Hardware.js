@@ -1435,6 +1435,32 @@ define(['app'], function (app) {
 					}
 				});
 			}
+			else if (text.indexOf("DomoCAN SocketCAN Gateway") >= 0) {
+				var ifname = $("#hardwareparamscanbus #domocanifname").val();
+				if (ifname == "") {
+					ShowNotify($.t('Please enter an interface name'), 2500, true);
+					return;
+				}
+				var gwid = $("#hardwareparamscanbus #domocangwid").val();
+				if (gwid == "") {
+					ShowNotify($.t('Please enter an ID for the gateway'), 2500, true);
+					return;
+				}
+
+				$.ajax({
+					url: "json.htm?type=command&param=addhardware&htype=" + hardwaretype + "&name=" + encodeURIComponent(name) + "&enabled=" + bEnabled + "&datatimeout=" + datatimeout +
+					"&address=" + encodeURIComponent(gwid) +
+					"&port=" + encodeURIComponent(ifname),
+					async: false,
+					dataType: 'json',
+					success: function (data) {
+						RefreshHardwareTable();
+					},
+					error: function () {
+						ShowNotify($.t('Problem adding DomoCAN hardware!'), 2500, true);
+					}
+				});
+			}
 			else if (text.indexOf("I2C ") >= 0 ) {
 				hardwaretype = $("#hardwareparamsi2clocal #comboi2clocal").find('option:selected').val();
 				var i2cpath = $("#hardwareparamsi2clocal #i2cpath").val();
@@ -3265,7 +3291,10 @@ define(['app'], function (app) {
 							else if (HwTypeStr.indexOf("Arilux AL-LC0x") >= 0) {
 								HwTypeStr += ' <span class="label label-info lcursor" onclick="AddArilux(' + item.idx + ',\'' + item.Name + '\');">' + $.t("Add Light") + '</span>';
 							}
-
+							else if (HwTypeStr.indexOf("DomoCAN SocketCAN Gateway") >= 0) {
+                                HwTypeStr += ' ' + hardwareSetupLink;
+							}
+							
 							var sDataTimeout = "";
 							if (item.DataTimeout == 0) {
 								sDataTimeout = $.t("Disabled");
@@ -3300,6 +3329,7 @@ define(['app'], function (app) {
 									sDataTimeout = days + " " + $.t("Days");
 								}
 							}
+							
 
 							var dispAddress = item.Address;
 							if ((item.Type == 13) || (item.Type == 71) || (item.Type == 85) || (item.Type == 96)) {
@@ -3416,6 +3446,10 @@ define(['app'], function (app) {
 							$("#hardwarecontent #hardwareparams1wire #owfspath").val(data["Extra"]);
 							$("#hardwarecontent #hardwareparams1wire #OneWireSensorPollPeriod").val(data["Mode1"]);
 							$("#hardwarecontent #hardwareparams1wire #OneWireSwitchPollPeriod").val(data["Mode2"]);
+						}
+						else if (data["Type"].indexOf("DomoCAN SocketCAN Gateway") >= 0) {
+							$("#hardwareparamscanbus #domocanifname").val(data["Port"]);
+							$("#hardwareparamscanbus #domocangwid").val(data["Address"]);
 						}
 						else if (data["Type"].indexOf("I2C ") >= 0) {
 							$("#hardwareparamsi2clocal #comboi2clocal").val(jQuery.inArray(data["Type"], $.myglobals.HardwareI2CStr));
@@ -3887,6 +3921,7 @@ define(['app'], function (app) {
 			$("#hardwarecontent #divremote").hide();
 			$("#hardwarecontent #divlogin").hide();
 			$("#hardwarecontent #divhttppoller").hide();
+			$("#hardwarecontent #divdomocangw").hide();
 
 			// Handle plugins 1st because all the text indexof logic below will have unpredictable impacts for plugins
 			// Python Plugins have the plugin name, not the hardware type id, as the value
@@ -3914,6 +3949,9 @@ define(['app'], function (app) {
 					$("#hardwarecontent #divi2caddress").show();
 					$("#hardwarecontent #divi2cinvert").show();
 				}
+			}
+			else if (text.indexOf("DomoCAN SocketCAN Gateway") >= 0) {
+				$("#hardwarecontent #divdomocangw").show();
 			}
 			else if ((text.indexOf("GPIO") >= 0) && (text.indexOf("sysfs GPIO") == -1)) {
 				$("#hardwarecontent #divgpio").show();

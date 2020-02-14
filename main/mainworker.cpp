@@ -40,6 +40,7 @@
 #include "../hardware/DavisLoggerSerial.h"
 #include "../hardware/1Wire.h"
 #include "../hardware/I2C.h"
+#include "../hardware/DomoCAN.h"
 #include "../hardware/Wunderground.h"
 #include "../hardware/DarkSky.h"
 #include "../hardware/HardwareMonitor.h"
@@ -1086,6 +1087,9 @@ bool MainWorker::AddHardwareFromParams(
 		break;
 	case HTYPE_BuienRadar:
 		pHardware = new CBuienRadar(ID, Mode1, Mode2);
+		break;
+	case HTYPE_DomoCANGW:
+		pHardware = new DomoCAN(ID, Address, SerialPort);
 		break;
 	}
 

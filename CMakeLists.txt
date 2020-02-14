@@ -372,6 +372,7 @@ hardware/DenkoviTCPDevices.cpp
 hardware/DomoticzHardware.cpp
 hardware/DomoticzInternal.cpp
 hardware/DomoticzTCP.cpp
+hardware/DomoCAN.cpp
 hardware/Dummy.cpp
 hardware/EcoCompteur.cpp
 hardware/EcoDevices.cpp
